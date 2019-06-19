@@ -1,0 +1,31 @@
+<template name="App_Main">
+<h2>{{textHelper}}</h2>
+<button type="button" name="button" class="smt">click</button>
+<!-- <button type="submit" name="button" class="update">update</button> -->
+<!-- <input type="submit" name="input" class="input"> -->
+<form>
+<table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each getUsers}}
+        <tr>
+          <td>{{_id}}</td>
+          <td>{{name}}</td>
+          <td>
+            <button class="remove btn btn-warning" data-position="bottom" data-tooltip="Remove Record">
+              Remove
+              </button>
+              <input  name="input" id="input" class='input-{{_id}}' value="{{name}}">
+              <button type="button" name="update" class="update btn btn-primary">update</button>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+</form>
+</template>

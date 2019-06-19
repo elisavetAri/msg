@@ -1,0 +1,11 @@
+import '/imports/startup/client';
+import '/imports/startup/client/globalHelpers.js';
+import { $ } from 'meteor/jquery';
+import dataTablesBootstrap from 'datatables.net-bs';
+import 'datatables.net-bs/css/dataTables.bootstrap.css';
+dataTablesBootstrap(window, $);
+import '/imports/ui/pages/page2/dataTables.bootstrap4.min.js';
+import '/imports/ui/pages/page2/dataTables.foundation.min.js';
+import '/imports/ui/pages/page2/dataTables.jqueryui.min.js';
+import '/imports/ui/pages/page2/dataTables.semanticui.min.js';
+import '/imports/ui/pages/page2/jquery.dataTables.min.js';

@@ -1,0 +1,1 @@
+{"head":"","body":"","js":"\nTemplate.__checkName(\"dynamicTableSelect2ValueEditor\");\nTemplate[\"dynamicTableSelect2ValueEditor\"] = new Template(\"Template.dynamicTableSelect2ValueEditor\", (function() {\n  var view = this;\n  return HTML.Raw('<select style=\"width: 100%\" class=\"dynamicTableSelect2ValueEditor\"></select>');\n}));\n","bodyAttrs":{}}

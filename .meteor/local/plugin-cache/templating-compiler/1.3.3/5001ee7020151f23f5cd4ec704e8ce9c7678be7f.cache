@@ -1,0 +1,1 @@
+{"head":"","body":"","js":"\nTemplate.__checkName(\"dynamicTableRawRender\");\nTemplate[\"dynamicTableRawRender\"] = new Template(\"Template.dynamicTableRawRender\", (function() {\n  var view = this;\n  return Blaze.View(\"lookup:.\", function() {\n    return Spacebars.makeRaw(Spacebars.mustache(view.lookup(\".\")));\n  });\n}));\n","bodyAttrs":{}}

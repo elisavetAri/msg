@@ -1,0 +1,306 @@
+<template name="App_messenger">
+
+  <div class="container" style="background-image:url('/images/tele.jpg')">
+  <style >
+  #grad1 {
+    width: 180px;
+    height: 180px;
+    background-image:
+    /* linear-gradient(to top, transparent, teal), */
+    linear-gradient(to top, transparent, grey),
+    linear-gradient(to right, #566573, #1B4F72,#85929E);
+    /* linear-gradient(to right, green, aqua,#F8FFAE ); */
+    background-size: 100% 100%, 2000% 100%;
+    animation: move 2s infinite;
+}
+  @keyframes move {
+     from {background-position: center center, left center;}
+     to {background-position: center center, right center;}
+}
+  #search {
+      position: relative;
+      -ms-flex: 1 1 auto;
+      flex: inherit;
+      width: 12%;
+      margin-bottom: 0;
+      background-color:#EAEDED;
+      border: 2px solid #dedede;
+  #choice {
+      position: relative;
+      -ms-flex: 1 1 auto;
+      flex: inherit;
+      width: 12%;
+      margin-bottom: 0;
+      background-color:#EAEDED;
+      border: 2px solid #dedede;
+
+}
+  </style>
+
+  <button type="button" id="logout" class="logout btn btn-default btn-sm  float-right text-white" style="background:grey" ><span class="glyphicon glyphicon-log-out"></span> Log out</button>
+  <div class="form-group" style="background-image:url('/images/tele.jpg')">
+    <span class='navbar-toggler-icon'></span>
+      <div class="mess" id= 'sidenav'>
+        <div class="card-header">
+						<div class="input-group">
+							<input type="text" placeholder="Search..." id="search" class="form-control search" style="background:grey text-white ">
+							<div class="input-group-prepend">
+                <input class = "submit text-white " id ="submit" type="submit" name="submit" value="Search" style="background:grey" >
+							</div>
+						</div>
+          </div>
+      <select multiple class="users bg-dark p-4s text-white navbar navbar-dark bg-dark float-left"  size="20" id="users"  >
+      {{#each getUsers}}
+        <option class="text-white" id="chat" value="{{_id}}" style="background-color:#A9CCE3">Chat with {{name}}</option>
+      {{/each}}
+     </select>
+     <!-- <input type="file" accept="image/*;capture=camera"> \\ Snapshot
+     <input type="file" accept="video/*;capture=camcorder"> \\ Video
+     <input type="file" accept="audio/*;capture=microphone"> \\ Audio -->
+    </div>
+  </div>
+  <div class="text text-r pt-3" style="background-image:url('/images/tele.jpg')">
+    <div class="row msg-wrap" style="height:443px; overflow:auto;">
+    {{#each getMessages}}
+      <div class="col-10 mb-3">
+      {{#let sender = (getUserById sid) receiver = (getUserById rid)}}
+      {{viewMessage receiver._id _id viewed}}
+        <div id="card" class="card text-white purple-gradient color-block mx-auto z-depth-1 align-items-stretch {{#if isMe sender._id}}float-right {{else}}float-sm-left{{/if}}" style="position:relative" value= "">
+          <span class="remove" style="position: absolute; right: 3px; top: 8px; color: red; line-height: 0; cursor:pointer">×</span>
+          <div class="card-body"  id ="grad1">
+            <span class="time-left">{{sender.name}}</span> to <span class="right"> {{receiver.name}}</span> <br>
+            <span class="">
+              <small>
+              {{parseDate created_at}}
+              </small>
+              {{#if isFile type}}
+                {{#if isImage message}}
+                  <img src="http://172.16.1.143:3333/?{{message}}" alt="" style="width:100%">
+                {{else}}
+                <a href="http://172.16.1.143:3333/?{{message}}" download="{{message}}">Download file</a>
+                {{/if}}
+              {{else}}
+              {{#each getLines message}}
+                <br>
+                {{this}}
+              {{/each}}
+              {{/if}}
+            </span>
+          <div class="imageView">
+          </div>
+              <br>
+              <span class="update material-icons" style="position: absolute; left: 1px; top: 1px; cursor:pointer">📝</span>
+          </div>
+        </div>
+      {{/let}}
+      </div>
+      {{/each}}
+    </div>
+  </div>
+  <!-- uload file -->
+  <div class="input-group">
+ <div class="choice" id="choice">
+   <input type="file" id="upload" class="upload choice-input" name="file">
+   <label class="choice-label" id="label" for="upload">Choose file</label>
+ </div>
+</div>
+  <div class="form-group">
+    <textarea data-meteor-emoji="true" class="text-white message form-control" id="message" width= "15px;" height="15px;" rows="4" cols="20" style="background-image:url('/images/tele.jpg')" placeholder="Write a message..."></textarea>
+      <button type="button" name="button" id="send-message" class="messenger btn btn-priamry text-white " style="background:grey">Send</button>
+   </div>
+<!-- emoji script -->
+<script>(() => {new MeteorEmoji()})() </script></div>
+  <!-- sound for msg -->
+  <audio id="audio" preload="auto" tabindex="0" controls="controls" type="audio/mpeg" src="/bicycle_bell_07.mp3" style="display:none"></audio>
+<div id="webcamcontrols">
+<button class="recordbutton" id ="recordbutton" data-toggle="modal" data-target="#myModal">RECORD</button>
+</div>
+<head>
+    <meta charset="utf-8" />
+    <title>RecordRTC to Node.js</title>
+
+        if (location.href.indexOf('file:') == 0) {
+            document.write('<h1 style="color:red;">Please load this HTML file on HTTP or HTTPS.</h1>');
+        }
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link rel="author" type="text/html" href="https://plus.google.com/+MuazKhan">
+    <meta name="author" content="Muaz Khan">
+
+    <style>
+        html { background-color: #f7f7f7; }
+
+        body {
+            background-color: white;
+            border: 1px solid rgb(15, 158, 238);
+            margin: 1% 35%;
+            text-align: center;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid rgb(15, 158, 238);
+        }
+
+        a {
+            color: #2844FA;
+            text-decoration: none;
+        }
+
+        a:hover, a:focus { color: #1B29A4; }
+
+        a:active { color: #000; }
+
+        audio, video {
+            border: 1px solid rgb(15, 158, 238); width: 94%;
+        }
+        button[enable], input[enable] { background: rgba(216, 205, 205, 0.2); border: 1px solid rgb(233, 224, 224);}
+    </style>
+</head>
+<body>
+    <p>
+      <video autoplay="" playsinline="" muted="false" controls="" volume="1" height="400" src="getUserMedia()">               </video>
+    </p><hr/>
+
+    <div>
+        <label id="percentage">0%</label>
+        <progress id="progress-bar" value=0></progress><br />
+    </div>
+
+    <hr />
+
+    <div>
+        <button id="btn-start-recording" onclick="startRecording()">Start Recording</button>
+        <button id="btn-stop-recording">Stop Recording</button>
+    </div>
+
+    <!-- <script src="/node_modules/recordrtc/RecordRTC.js"> </script> -->
+
+    <script>
+        // // fetching DOM references
+        // var btnStartRecording = document.querySelector('#btn-start-recording');
+        // var btnStopRecording  = document.querySelector('#btn-stop-recording');
+        //
+        // var videoElement      = document.querySelector('video');
+        //
+        // var progressBar = document.querySelector('#progress-bar');
+        // var percentage = document.querySelector('#percentage');
+        //
+        // var recorder;
+        //
+        // // reusable helpers
+        //
+        // // this function submits recorded blob to nodejs server
+        // function postFiles() {
+        //     var blob = recorder.getBlob();
+        //
+        //     // getting unique identifier for the file name
+        //     var fileName = generateRandomString() + '.webm';
+        //
+        //     var file = new File([blob], fileName, {
+        //         type: 'video/webm'
+        //     });
+        //
+        //     videoElement.src = '';
+        //     videoElement.poster = '/ajax-loader.gif';
+        //
+        //     xhr('/uploadFile', file, function(responseText) {
+        //         var fileURL = JSON.parse(responseText).fileURL;
+        //
+        //         console.info('fileURL', fileURL);
+        //         videoElement.src = fileURL;
+        //         videoElement.play();
+        //         videoElement.muted = false;
+        //         videoElement.controls = true;
+        //
+        //         document.querySelector('#footer-h2').innerHTML = '<a href="' + videoElement.src + '">' + videoElement.src + '</a>';
+        //     });
+        //
+        //     if(mediaStream) mediaStream.stop();
+        // }
+        //
+        // // XHR2/FormData
+        // function xhr(url, data, callback) {
+        //     var request = new XMLHttpRequest();
+        //     request.onreadystatechange = function() {
+        //         if (request.readyState == 4 && request.status == 200) {
+        //             callback(request.responseText);
+        //         }
+        //     };
+        //
+        //     request.upload.onprogress = function(event) {
+        //         progressBar.max = event.total;
+        //         progressBar.value = event.loaded;
+        //         progressBar.innerHTML = 'Upload Progress ' + Math.round(event.loaded / event.total * 100) + "%";
+        //     };
+        //
+        //     request.upload.onload = function() {
+        //         percentage.style.display = 'none';
+        //         progressBar.style.display = 'none';
+        //     };
+        //     request.open('POST', url);
+        //
+        //     var formData = new FormData();
+        //     formData.append('file', data);
+        //     request.send(formData);
+        // }
+        //
+        // // generating random string
+        // function generateRandomString() {
+        //     if (window.crypto) {
+        //         var a = window.crypto.getRandomValues(new Uint32Array(3)),
+        //             token = '';
+        //         for (var i = 0, l = a.length; i < l; i++) token += a[i].toString(36);
+        //         return token;
+        //     } else {
+        //         return (Math.random() * new Date().getTime()).toString(36).replace( /\./g , '');
+        //     }
+        // }
+        //
+        // var mediaStream = null;
+        // // reusable getUserMedia
+        // function captureUserMedia(success_callback) {
+        //     var session = {
+        //         audio: true,
+        //         video: true
+        //     };
+        //
+        //     navigator.getUserMedia(session, success_callback, function(error) {
+        //         alert('Unable to capture your camera. Please check console logs.');
+        //         console.error(error);
+        //     });
+        // }
+        //
+        // // UI events handling
+        // btnStartRecording.onclick = function() {
+        //     btnStartRecording.disabled = true;
+        //
+        //     captureUserMedia(function(stream) {
+        //         mediaStream = stream;
+        //         videoElement.src = window.URL.createObjectURL(stream);
+        //         videoElement.play();
+        //         videoElement.muted = true;
+        //         videoElement.controls = false;
+        //
+        //         recorder = RecordRTC(stream, {
+        //             type: 'video'
+        //         });
+        //
+        //         recorder.startRecording();
+        //
+        //         // enable stop-recording button
+        //         btnStopRecording.disabled = true;
+        //     });
+        // };
+        // btnStopRecording.onclick = function() {
+        //     btnStartRecording.disabled = false;
+        //     btnStopRecording.disabled = false;
+        //
+        //     recorder.stopRecording(postFiles);
+        // };
+        //
+        // window.onbeforeunload = function() {
+        //     startRecording.disabled = false;
+        // };
+    </script>
+    </body>
+</template>
